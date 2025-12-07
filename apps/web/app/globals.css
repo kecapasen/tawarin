@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 @import "tailwindcss";
-=======
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -51,4 +50,4 @@ a {
     display: unset;
   }
 }
->>>>>>> 2613c76ca963291c31c5edc54b623235f13d3cb9
+
