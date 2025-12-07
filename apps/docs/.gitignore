@@ -25,12 +25,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-<<<<<<< HEAD
-=======
 # env files (can opt-in for commiting if needed)
 .env*
 
->>>>>>> 2613c76ca963291c31c5edc54b623235f13d3cb9
 # vercel
 .vercel
 
