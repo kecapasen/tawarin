@@ -3,7 +3,7 @@
 **Nego Sampai Deal, Tanpa Basa-basi.**
 *Platform E-Commerce berbasis AI pertama yang menghadirkan sensasi tawar-menawar pasar tradisional ke dunia digital.*
 
-(Replace banner image URL with your own screenshot)
+<img src
 
 ## 🏆 Hackathon Project
 Project ini dibangun khusus untuk Hackathon Inovasi AI. Menggabungkan teknologi Generative AI (LLM) dengan pengalaman belanja lokal Indonesia.
