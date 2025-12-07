@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
@@ -8,7 +7,9 @@ import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import Image from "next/image";
 
+// --- Types ---
 interface Product {
   id: number;
   name: string;
@@ -24,11 +25,14 @@ interface Product {
   category: string;
 }
 
+// --- Supabase Config ---
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const CATEGORIES = ["Semua", "Elektronik", "Fashion", "Hobi", "Otomotif", "Rumah Tangga"];
+
+// --- Components ---
 
 const Card3D = ({ children, onClick }: { children: React.ReactNode, onClick: () => void }) => {
   const x = useMotionValue(0);
@@ -61,30 +65,12 @@ const Card3D = ({ children, onClick }: { children: React.ReactNode, onClick: () 
     >
       {children}
     </motion.div>
-=======
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
->>>>>>> 2613c76ca963291c31c5edc54b623235f13d3cb9
   );
 };
 
+// --- Main Page Component ---
+
 export default function Home() {
-<<<<<<< HEAD
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -96,7 +82,7 @@ export default function Home() {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    // 1. Redirect jika belum login
+    // 1. Redirect if not logged in
     if (status === "unauthenticated") {
         router.push("/login");
         return;
@@ -106,9 +92,8 @@ export default function Home() {
     const savedCart = localStorage.getItem("tawarin_cart");
     if (savedCart) setCartCount(JSON.parse(savedCart).length);
 
-    // 3. Cek User di Backend (FIXED URL)
+    // 3. Check User Backend
     if (status === "authenticated" && session?.user?.email) {
-      // JURUS ANTI ERROR: Pakai Fallback URL jika ENV kosong
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://18.141.167.37:3001';
 
       fetch(`${API_URL}/user/check`, {
@@ -132,7 +117,7 @@ export default function Home() {
     const fetchProducts = async () => {
       setIsLoading(true);
       
-      // Fetch dari Backend atau Supabase langsung (Disini kita pakai Supabase langsung biar cepet)
+      // Fetch from Supabase
       const { data: dbProducts, error } = await supabase
         .from('products')
         .select('id, name, price, description, image_url, category')
@@ -279,31 +264,31 @@ export default function Home() {
           className="w-full min-h-[320px] bg-gradient-to-br from-[#00AA5B] to-[#008f4c] rounded-[2.5rem] p-8 md:p-12 mb-12 relative overflow-hidden flex flex-col justify-center shadow-2xl shadow-green-500/30 group"
         >
            <div className="relative z-10 text-white max-w-2xl space-y-6">
-              <motion.div 
-                initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-white/30 w-fit"
-              >
+             <motion.div 
+               initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
+               className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-white/30 w-fit"
+             >
                  🔥 Hackathon Special
-              </motion.div>
-              <h1 className="text-4xl md:text-6xl font-black leading-tight drop-shadow-lg">
-                Nego Sampai Deal,<br/>Tanpa Basa-basi.
-              </h1>
-              <p className="text-green-50 text-lg font-medium opacity-90 max-w-lg leading-relaxed">
-                Platform jual beli pertama dengan AI Negotiator yang bikin harga cocok buat semua. Gak perlu drama, langsung bungkus!
-              </p>
-              <motion.button 
-                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} 
-                className="bg-white text-green-700 font-bold px-8 py-4 rounded-xl shadow-xl hover:shadow-2xl transition w-fit"
-              >
-                Mulai Belanja
-              </motion.button>
+             </motion.div>
+             <h1 className="text-4xl md:text-6xl font-black leading-tight drop-shadow-lg">
+               Nego Sampai Deal,<br/>Tanpa Basa-basi.
+             </h1>
+             <p className="text-green-50 text-lg font-medium opacity-90 max-w-lg leading-relaxed">
+               Platform jual beli pertama dengan AI Negotiator yang bikin harga cocok buat semua. Gak perlu drama, langsung bungkus!
+             </p>
+             <motion.button 
+               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} 
+               className="bg-white text-green-700 font-bold px-8 py-4 rounded-xl shadow-xl hover:shadow-2xl transition w-fit"
+             >
+               Mulai Belanja
+             </motion.button>
            </div>
            
            <div className="absolute right-0 top-0 bottom-0 w-full md:w-2/3 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
            <motion.div 
-              animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }} 
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-20 -top-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+             animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }} 
+             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+             className="absolute -right-20 -top-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"
            ></motion.div>
            <div className="absolute -right-20 -bottom-40 w-96 h-96 bg-yellow-300/30 rounded-full blur-[100px] animate-pulse"></div>
         </motion.div>
@@ -371,86 +356,3 @@ export default function Home() {
     </div>
   );
 }
-=======
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.com/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.com?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.com →
-        </a>
-      </footer>
-    </div>
-  );
-}
->>>>>>> 2613c76ca963291c31c5edc54b623235f13d3cb9
