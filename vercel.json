@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm install --shamefully-hoist && pnpm build",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ]
+}
